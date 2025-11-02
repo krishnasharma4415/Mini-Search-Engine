@@ -5,17 +5,13 @@ from bs4 import BeautifulSoup
 import re
 
 def get_project_root():
-    """Get the project root directory (parent of src folder)"""
     current_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.dirname(current_dir)
 
 def get_data_path(filename):
-    """Get the full path to a data file"""
     return os.path.join(get_project_root(), 'data', filename)
 
 def load_json_data(filename):
-    """Load JSON data from file. If filename doesn't contain path separators, 
-    assume it's in the data directory."""
     if os.sep not in filename and '/' not in filename:
         filename = get_data_path(filename)
     
@@ -28,8 +24,6 @@ def load_json_data(filename):
         return {}
 
 def save_json_data(data, filename):
-    """Save JSON data to file. If filename doesn't contain path separators,
-    assume it should go in the data directory."""
     if os.sep not in filename and '/' not in filename:
         filename = get_data_path(filename)
     
