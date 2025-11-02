@@ -16,14 +16,34 @@ This educational project implements a complete information retrieval system with
 ## Setup Instructions
 
 ### 1. Install Dependencies
+
+**Core Dependencies (Required):**
 ```bash
 pip install -r requirements.txt
 ```
 
+**Optional Dependencies (Development & Notebooks):**
+For enhanced development experience, Jupyter notebooks, and additional tools:
+```bash
+pip install -r requirements-optional.txt
+```
+
+**Manual Installation:**
+You can also install dependencies individually:
+```bash
+# Core only
+pip install requests beautifulsoup4 nltk numpy
+
+# With optional tools
+pip install jupyter matplotlib seaborn pytest black
+```
+
 ### 2. Download NLTK Data
-```python
+```bash
 python -c "import nltk; nltk.download('stopwords')"
 ```
+
+**Note**: The NLTK stopwords corpus is required for text preprocessing. The indexer will automatically attempt to download it if not present, but you can also download it manually using the command above.
 
 ### 3. Create Data Directory
 The `data/` directory will be created automatically when you run the crawler.
@@ -32,7 +52,7 @@ The `data/` directory will be created automatically when you run the crawler.
 
 ### Step 1: Crawl Websites
 ```bash
-python crawler.py
+python src/crawler.py
 ```
 This will:
 - Crawl 50 pages from AI/ML websites (Kaggle, Papers with Code, Hugging Face, Google AI Blog)
@@ -42,7 +62,7 @@ This will:
 
 ### Step 2: Build Search Index
 ```bash
-python indexer.py
+python src/indexer.py
 ```
 This will:
 - Process crawled content with text preprocessing
@@ -51,7 +71,7 @@ This will:
 
 ### Step 3: Calculate PageRank Scores
 ```bash
-python pagerank.py
+python src/pagerank.py
 ```
 This will:
 - Calculate PageRank scores for all crawled pages
@@ -60,7 +80,7 @@ This will:
 
 ### Step 4: Start Searching
 ```bash
-python search.py
+python src/search.py
 ```
 This provides an interactive search interface with three ranking options:
 1. **TF-IDF only**: Pure content-based ranking
@@ -124,40 +144,45 @@ Search completed in 0.045 seconds
 
 ```
 ir_search_engine/
-├── crawler.py          # Web crawling functionality
-├── indexer.py          # Text processing and indexing
-├── ranker.py           # TF-IDF ranking implementation
-├── pagerank.py         # PageRank algorithm
-├── hits.py             # HITS algorithm
-├── search.py           # Search interface and result combination
-├── utils.py            # Utility functions
-├── stats.py            # Statistics generation
-├── test_algorithms.py  # Unit tests
-├── test_integration.py # Integration tests
-├── requirements.txt    # Python dependencies
-├── README.md          # This file
-└── data/              # Generated data files
-    ├── crawled_pages.json
-    ├── link_graph.json
-    ├── inverted_index.json
-    └── pagerank_scores.json
+├── src/                # Source code
+│   ├── crawler.py      # Web crawling functionality
+│   ├── indexer.py      # Text processing and indexing
+│   ├── ranker.py       # TF-IDF ranking implementation
+│   ├── pagerank.py     # PageRank algorithm
+│   ├── hits.py         # HITS algorithm
+│   ├── search.py       # Search interface and result combination
+│   ├── utils.py        # Utility functions
+│   ├── stats.py        # Statistics generation
+│   └── evaluation.py   # Query evaluation and comparison
+├── tests/              # Test files
+│   ├── test_algorithms.py  # Unit tests
+│   └── test_integration.py # Integration tests
+├── notebooks/          # Jupyter notebooks for experimentation
+├── data/              # Generated data files
+│   ├── crawled_pages.json
+│   ├── link_graph.json
+│   ├── inverted_index.json
+│   └── pagerank_scores.json
+├── requirements.txt         # Core Python dependencies
+├── requirements-optional.txt # Optional development dependencies  
+└── README.md               # This file
 ```
 
 ## Testing
 
 ### Run Unit Tests
 ```bash
-python test_algorithms.py
+python tests/test_algorithms.py
 ```
 
 ### Run Integration Tests
 ```bash
-python test_integration.py
+python tests/test_integration.py
 ```
 
 ### Generate Statistics
 ```bash
-python stats.py
+python src/stats.py
 ```
 
 ## Limitations and Future Improvements
